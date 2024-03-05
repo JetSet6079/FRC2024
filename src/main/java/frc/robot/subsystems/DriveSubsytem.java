@@ -24,7 +24,7 @@ public class DriveSubsytem extends SubsystemBase {
 
   /** Creates a new DriveSubsytem. */
   public DriveSubsytem() {
-    left1Motor = new CANSparkMax(10, MotorType.kBrushless);
+    left1Motor = new CANSparkMax(Constants.MotorConstants.DRIVE_MOTOR_1_PORT, MotorType.kBrushless);
     left2Motor = new CANSparkMax(Constants.MotorConstants.DRIVE_MOTOR_2_PORT, MotorType.kBrushless);
     right1Motor = new CANSparkMax(Constants.MotorConstants.DRIVE_MOTOR_3_PORT, MotorType.kBrushless);
     right2Motor = new CANSparkMax(Constants.MotorConstants.DRIVE_MOTOR_4_PORT, MotorType.kBrushless);

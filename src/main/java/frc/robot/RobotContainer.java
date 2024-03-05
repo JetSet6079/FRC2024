@@ -4,9 +4,9 @@
 
 package frc.robot;
 
+import frc.robot.Autons.AutoCrossTheLine;
+import frc.robot.Autons.AutoShootThenCrossLine;
 import frc.robot.Autons.TestAuton;
-import frc.robot.commands.AutoCrossTheLine;
-import frc.robot.commands.AutoShootThenCrossLine;
 import frc.robot.commands.AutonDriveCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.DriveSubsytem;
@@ -86,7 +86,7 @@ public class RobotContainer {
       );
 
     //TEST AUTON DRIVE, right bumper sticker
-    new JoystickButton(m_controller, 5).onTrue(new AutonDriveCommand(m_driveSubsytem, 1.0, false));
+    new JoystickButton(m_controller, 5).onTrue(new AutonDriveCommand(m_driveSubsytem, 1.0, true));
 
 
       // if (m_controller.getAButton()) {

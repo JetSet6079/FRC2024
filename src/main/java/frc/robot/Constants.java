@@ -17,7 +17,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class MotorConstants {
-    public static final int DRIVE_MOTOR_1_PORT = 1;
+    public static final int DRIVE_MOTOR_1_PORT = 10;
     public static final int DRIVE_MOTOR_2_PORT = 2;
     public static final int DRIVE_MOTOR_3_PORT = 3;
     public static final int DRIVE_MOTOR_4_PORT = 4;
