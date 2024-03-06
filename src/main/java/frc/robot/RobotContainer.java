@@ -101,7 +101,7 @@ public class RobotContainer {
       new JoystickButton(m_controller, 4).onTrue(
         new RunCommand(()->m_shooterSubsystem.shoot(1.0), m_shooterSubsystem)
       ).onFalse(
-        new InstantCommand(()->m_shooterSubsystem.stop(), m_shooterSubsystem)
+          new InstantCommand(()->m_shooterSubsystem.stop(), m_shooterSubsystem)
       );
 
       // if (m_controller.getYButtonPressed()) {
