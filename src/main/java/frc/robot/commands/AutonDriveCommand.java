@@ -4,8 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.lib.betaLib.PidConfig;
 import frc.robot.subsystems.DriveSubsytem;
 
 public class AutonDriveCommand extends Command {
@@ -18,11 +18,15 @@ public class AutonDriveCommand extends Command {
   double power = 0.1;
   double kp = 0.0001;
 
+  Timer timer = new Timer();
+
   boolean isFinished;
 
   public AutonDriveCommand(DriveSubsytem drive, double time) {
     this.time = time;
     this.driveSubsytem = drive;
+
+    timer.start();
   }
 
   @Override
@@ -34,8 +38,7 @@ public class AutonDriveCommand extends Command {
 
     //pidConfig.updateFromSmartDashboard();
 
-    if (time > 0) {
-      time++;
+    if (timer.get() > time) {
       driveSubsytem.drive(power, 0);
     } else {
       driveSubsytem.drive(0, 0);

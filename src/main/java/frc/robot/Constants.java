@@ -46,6 +46,6 @@ public final class Constants {
     public static final double AMP_TAG_HIGHT_INCHES = 53.63;
 
     public static final double METERS_IN_TIME_QUARTERSPEED = 0.0;
-    public static final double DEGREES_IN_TIME_QUARTERSPEED = 0.0;
+    public static final double DEGREES_IN_TIME_QUARTERSPEED = 195.0;
   }
 }

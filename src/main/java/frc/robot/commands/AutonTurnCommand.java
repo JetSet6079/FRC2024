@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsytem;
@@ -14,8 +15,6 @@ public class AutonTurnCommand extends Command {
 
   DriveSubsytem driveSubsytem;
 
-  boolean isFinished = false;
-
   public AutonTurnCommand(DriveSubsytem drive, double time) {
     this.driveSubsytem = drive;
     this.time = time;
@@ -23,17 +22,19 @@ public class AutonTurnCommand extends Command {
 
   @Override
   public void initialize() {
+    
   }
 
   @Override
   public void execute() {
     if (time > 0) {
-      time++;
       driveSubsytem.drive(0.0, power);
     } else {
-      isFinished = true;
       driveSubsytem.drive(0.0, 0.0);
     }
+    time--;
+
+    SmartDashboard.putNumber("time", time);
   }
 
   @Override
@@ -41,6 +42,6 @@ public class AutonTurnCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return time <= 0;
   }
 }

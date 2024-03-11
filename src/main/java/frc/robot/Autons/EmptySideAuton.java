@@ -34,10 +34,10 @@ public class EmptySideAuton extends SequentialCommandGroup {
         )
       ),
 
-      new AutonTurnCommand(drive, 20),
+      new AutonTurnCommand(drive, 0.3),
 
       new ParallelRaceGroup(
-        new AutonDriveCommand(drive, 50),
+        new AutonDriveCommand(drive, 1),
         new WaitCommand(2.0),
         new ParallelCommandGroup(
           new RunCommand(()-> intake.intake(1.0), intake),
