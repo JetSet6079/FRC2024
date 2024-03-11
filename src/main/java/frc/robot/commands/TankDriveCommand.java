@@ -16,13 +16,16 @@ public class TankDriveCommand extends Command {
 
   DriveSubsytem driveSubsytem;
 
-  double driveMultiplier = 0.4;
-  double turnMultiplier = 0.2;
+  double driveMultiplier = 0.8;
+  double turnMultiplier = 0.55;
   XboxController controller;
 
-  public TankDriveCommand(DriveSubsytem driveSubsytem, XboxController c) {
+  boolean turbo;
+
+  public TankDriveCommand(DriveSubsytem driveSubsytem, XboxController c, boolean turbo) {
     this.driveSubsytem = driveSubsytem;
     this.controller = c;
+    this.turbo = turbo;
     addRequirements(driveSubsytem);
   }
 
@@ -33,6 +36,11 @@ public class TankDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    if(turbo) {
+      driveMultiplier = 1;
+    }
+
 
     double p = controller.getLeftY() * driveMultiplier * -1.0;
     double t = controller.getLeftX() * turnMultiplier * -1.0; 

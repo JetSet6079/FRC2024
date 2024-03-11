@@ -28,6 +28,8 @@ public final class Constants {
     public static final int INDEXER_MOTOR_PORT = 9;
     public static final int LEFT_SHOOTER_MOTOR_PORT = 8;
     public static final int RIGHT_SHOOTER_MOTOR_PORT = 6;
+
+    public static final int CLIMBER_MOTOR_PORT = 5;
   }
   public static class TuningConstants {
     public static final boolean AUTO_DRIVE_TUNABLE = true;
@@ -42,5 +44,8 @@ public final class Constants {
   public static class FieldConstants {
     public static final double SPEAKER_TAG_HIGHT_INCHES = 57.13;
     public static final double AMP_TAG_HIGHT_INCHES = 53.63;
+
+    public static final double METERS_IN_TIME_QUARTERSPEED = 0.0;
+    public static final double DEGREES_IN_TIME_QUARTERSPEED = 0.0;
   }
 }

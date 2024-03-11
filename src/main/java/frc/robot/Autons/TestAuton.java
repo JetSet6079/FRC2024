@@ -5,6 +5,7 @@
 package frc.robot.Autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutonTurnCommand;
 import frc.robot.subsystems.DriveSubsytem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -16,7 +17,7 @@ public class TestAuton extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      //new TankDriveCommand(drive, 0.5, 0.5)
+      new AutonTurnCommand(drive, 50)
     );
   }
 }

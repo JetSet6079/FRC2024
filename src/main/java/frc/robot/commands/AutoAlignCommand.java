@@ -45,7 +45,7 @@ public class AutoAlignCommand extends Command {
       int hashCode = target.hashCode();
       if (3 <= hashCode && hashCode <= 7) {
 
-        new AutonTurnCommand(driveSubsytem, target.getYaw(), true);
+        new AutonTurnCommand(driveSubsytem, target.getYaw());
 
        // new AutonDriveCommand(driveSubsytem, senserSubsystem.distanceFromTag() - offset, senserSubsystem.distanceFromTag() - offset, true);
       }

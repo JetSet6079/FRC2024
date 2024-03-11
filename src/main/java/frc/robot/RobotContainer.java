@@ -6,9 +6,12 @@ package frc.robot;
 
 import frc.robot.Autons.AutoCrossTheLine;
 import frc.robot.Autons.AutoShootThenCrossLine;
+import frc.robot.Autons.EmptySideAuton;
+import frc.robot.Autons.MainAuton;
 import frc.robot.Autons.TestAuton;
 import frc.robot.commands.AutonDriveCommand;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsytem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -32,6 +35,7 @@ public class RobotContainer {
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SenserSubsystem m_senserSubsystem = new SenserSubsystem();
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
 
@@ -47,17 +51,33 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-      dropdown.setDefaultOption("Cross The Line", new AutoCrossTheLine(m_driveSubsytem));
-      dropdown.addOption("Another Auton", new AutoShootThenCrossLine(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem));
+      dropdown.addOption("Cross The Line", new AutoCrossTheLine(m_driveSubsytem));
+      dropdown.setDefaultOption("Shoot and Cross Line", new AutoShootThenCrossLine(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem));
+      dropdown.addOption("Empty Side Shoot and Move", new EmptySideAuton(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem, m_intakeSubsystem, m_senserSubsystem));
+      dropdown.addOption("Main Auton (middle)", new MainAuton(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem, m_intakeSubsystem, m_senserSubsystem));
+      dropdown.addOption("TEST", new TestAuton(m_driveSubsytem));
 
-      SmartDashboard.getNumber("ShootTestSpeed", shootTestSpeed);
-      SmartDashboard.putNumber("ShootTestSpeed", shootTestSpeed);
+      SmartDashboard.putData(dropdown);
 
       m_driveSubsytem.setDefaultCommand(
-        new TankDriveCommand(m_driveSubsytem, m_controller)
+        new TankDriveCommand(m_driveSubsytem, m_controller, false)
       );
 
       //new AutonDriveCommand(m_driveSubsytem, () -> m_controller.getLeftY, () -> m_controller.getLeftY, true);
+
+      new JoystickButton(m_controller, 6).onTrue(new RunCommand(
+        ()->m_climberSubsystem.climb(1.0), m_climberSubsystem)).onFalse(
+          new RunCommand(()->m_climberSubsystem.climb(0.0), m_climberSubsystem));
+
+      new JoystickButton(m_controller, 5).onTrue(new RunCommand(
+        ()->m_climberSubsystem.climb(-1.0), m_climberSubsystem)).onFalse(
+          new RunCommand(()->m_climberSubsystem.climb(0.0), m_climberSubsystem));
+      
+
+      // TURBO (B)
+      new JoystickButton(m_controller, 2).whileTrue(
+        new TankDriveCommand(m_driveSubsytem, m_controller, true)
+      );
 
       // INTAKE IN (A Button)
       new JoystickButton(m_controller, 1).onTrue(
@@ -85,8 +105,9 @@ public class RobotContainer {
         )
       );
 
-    //TEST AUTON DRIVE, right bumper sticker
-    new JoystickButton(m_controller, 5).onTrue(new AutonDriveCommand(m_driveSubsytem, 1.0, true));
+    //TEST AUTON DRIVE, RIGHT ABOVE XBOX BUTTON
+
+    new JoystickButton(m_controller, 8).onTrue(new AutonDriveCommand(m_driveSubsytem, 0.5));
 
 
       // if (m_controller.getAButton()) {

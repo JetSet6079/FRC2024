@@ -12,38 +12,37 @@ public class AutonDriveCommand extends Command {
 
   private final DriveSubsytem driveSubsytem;
 
-  private final PidConfig pidConfig = new PidConfig("AutonDrive", 0, true);
+  //private final PidConfig pidConfig = new PidConfig("AutonDrive", 0, true);
 
-  double setPoint, currentPos, power, relativeAngle;
+  double time;
+  double power = 0.1;
+  double kp = 0.0001;
 
-  boolean relative;
+  boolean isFinished;
 
-  public AutonDriveCommand(DriveSubsytem drive, double setPoint, boolean relative) {
-    this.setPoint = setPoint;
+  public AutonDriveCommand(DriveSubsytem drive, double time) {
+    this.time = time;
     this.driveSubsytem = drive;
-    this.relative = relative;
   }
 
   @Override
   public void initialize() {
-    currentPos = driveSubsytem.getLeftPos();
-
-    if (relative) {
-      relativeAngle = driveSubsytem.getLeftPos();
-    }
   }
 
   @Override
   public void execute() {
 
-    pidConfig.updateFromSmartDashboard();
+    //pidConfig.updateFromSmartDashboard();
 
-    if (relative) {
-      currentPos = currentPos - relativeAngle;
+    if (time > 0) {
+      time++;
+      driveSubsytem.drive(power, 0);
+    } else {
+      driveSubsytem.drive(0, 0);
+      isFinished = true;
     }
-    power = currentPos - setPoint * pidConfig.getKd();
 
-    driveSubsytem.drive(power, 0);
+    
     //new TankDriveCommand(driveSubsytem, leftPower, rightPower);
   }
 
@@ -54,6 +53,6 @@ public class AutonDriveCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

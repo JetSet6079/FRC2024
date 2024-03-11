@@ -34,14 +34,14 @@ public class MainAuton extends SequentialCommandGroup {
       ),
 
       new ParallelRaceGroup(
-        new AutonDriveCommand(drive, Units.inchesToMeters(-72), false),
+        new AutonDriveCommand(drive, Units.inchesToMeters(-72)),
         new ParallelCommandGroup(
           new RunCommand(()-> intake.intake(1.0), intake),
           new RunCommand(()-> index.index(1.0), index)
         ).withTimeout(5.0)
       ),
 
-      new AutonDriveCommand(drive, Units.inchesToMeters(72), false),
+      new AutonDriveCommand(drive, Units.inchesToMeters(72)),
 
        new ParallelRaceGroup(
         // start shooter

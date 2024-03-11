@@ -27,7 +27,7 @@ public class AutoShootThenCrossLine extends SequentialCommandGroup {
       ),
 
       // drive back and turn as you drive
-      new RunCommand(()->drive.drive(-0.4, -0.4), drive).withTimeout(3.0)
+      new RunCommand(()->drive.drive(-0.4, 0.0), drive).withTimeout(3.0)
     );
   }
 }

@@ -25,26 +25,37 @@ public class EmptySideAuton extends SequentialCommandGroup {
     addCommands(
       new ParallelRaceGroup(
         // start shooter
-        new RunCommand(()-> shooter.speakerAutoShoot(sensers.distanceFromTag()), shooter),
+        new RunCommand(()->shooter.shoot(1.0), shooter),
 
         // wait 2 seconds then run indexer to feed shooter, after 3 seconds, this ends which ends the parallel race group
         new SequentialCommandGroup(
-          new WaitCommand(0.5),
-          new RunCommand(()->index.index(1.0), index).withTimeout(1.5)
+          new WaitCommand(2.0),
+          new RunCommand(()->index.index(1.0), index).withTimeout(3.0)
         )
       ),
 
-      new AutonDriveCommand(drive, Units.inchesToMeters(-9.681), false).withTimeout(1.0),
-      new AutonTurnCommand(drive, 68.211, false).withTimeout(1.5),
+      new AutonTurnCommand(drive, 20),
 
       new ParallelRaceGroup(
-        new AutonDriveCommand(drive, Units.inchesToMeters(-84.82), true),
+        new AutonDriveCommand(drive, 50),
         new WaitCommand(2.0),
         new ParallelCommandGroup(
           new RunCommand(()-> intake.intake(1.0), intake),
           new RunCommand(()-> index.index(1.0), index)
-        ).withTimeout(5.0)
+        ).withTimeout(2.0)
       )
+
+      // new AutonDriveCommand(drive, Units.inchesToMeters(-9.681)).withTimeout(1.0),
+      // new AutonTurnCommand(drive, 68.211).withTimeout(1.5),
+
+      // new ParallelRaceGroup(
+      //   new AutonDriveCommand(drive, Units.inchesToMeters(-84.82)),
+      //   new WaitCommand(2.0),
+      //   new ParallelCommandGroup(
+      //     new RunCommand(()-> intake.intake(1.0), intake),
+      //     new RunCommand(()-> index.index(1.0), index)
+      //   ).withTimeout(5.0)
+      // )
     );
   }
 }
