@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsytem;
 
@@ -15,18 +16,13 @@ public class AutonDriveCommand extends Command {
   //private final PidConfig pidConfig = new PidConfig("AutonDrive", 0, true);
 
   double time;
-  double power = 0.1;
-  double kp = 0.0001;
-
-  Timer timer = new Timer();
+  double power = -0.5;
 
   boolean isFinished;
 
   public AutonDriveCommand(DriveSubsytem drive, double time) {
     this.time = time;
     this.driveSubsytem = drive;
-
-    timer.start();
   }
 
   @Override
@@ -38,14 +34,16 @@ public class AutonDriveCommand extends Command {
 
     //pidConfig.updateFromSmartDashboard();
 
-    if (timer.get() > time) {
+    if (time > 0) {
       driveSubsytem.drive(power, 0);
     } else {
       driveSubsytem.drive(0, 0);
       isFinished = true;
     }
+    time--;
 
-    
+    SmartDashboard.putNumber("time", time);
+
     //new TankDriveCommand(driveSubsytem, leftPower, rightPower);
   }
 

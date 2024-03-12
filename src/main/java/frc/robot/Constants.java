@@ -17,7 +17,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class MotorConstants {
-    public static final int DRIVE_MOTOR_1_PORT = 10;
+    public static final int DRIVE_MOTOR_1_PORT = 1;
     public static final int DRIVE_MOTOR_2_PORT = 2;
     public static final int DRIVE_MOTOR_3_PORT = 3;
     public static final int DRIVE_MOTOR_4_PORT = 4;
@@ -29,7 +29,7 @@ public final class Constants {
     public static final int LEFT_SHOOTER_MOTOR_PORT = 8;
     public static final int RIGHT_SHOOTER_MOTOR_PORT = 6;
 
-    public static final int CLIMBER_MOTOR_PORT = 5;
+    public static final int CLIMBER_MOTOR_PORT = 11;
   }
   public static class TuningConstants {
     public static final boolean AUTO_DRIVE_TUNABLE = true;
@@ -45,7 +45,7 @@ public final class Constants {
     public static final double SPEAKER_TAG_HIGHT_INCHES = 57.13;
     public static final double AMP_TAG_HIGHT_INCHES = 53.63;
 
-    public static final double METERS_IN_TIME_QUARTERSPEED = 0.0;
-    public static final double DEGREES_IN_TIME_QUARTERSPEED = 195.0;
+    public static final double METERS_IN_TIME_QUARTERSPEED = 1.225;
+    public static final double DEGREES_IN_TIME_QUARTERSPEED = 197.5;
   }
 }

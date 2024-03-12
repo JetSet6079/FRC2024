@@ -4,8 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -13,10 +12,10 @@ import frc.robot.Constants;
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
 
-  private final CANSparkMax climberMotor;
+  private VictorSPX climberMotor;
 
   public ClimberSubsystem() {
-    climberMotor = new CANSparkMax(Constants.MotorConstants.CLIMBER_MOTOR_PORT, MotorType.kBrushed);
+    climberMotor = new VictorSPX(Constants.MotorConstants.CLIMBER_MOTOR_PORT);
     climberMotor.setInverted(true);
   }
 
@@ -26,6 +25,6 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void climb(double speed) {
-    climberMotor.set(speed);
+    climberMotor.set(com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput, speed);
   }
 }

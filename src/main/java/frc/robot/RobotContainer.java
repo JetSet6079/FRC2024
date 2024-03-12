@@ -108,7 +108,7 @@ public class RobotContainer {
 
     //TEST AUTON DRIVE, RIGHT ABOVE XBOX BUTTON
 
-    new JoystickButton(m_controller, 8).onTrue(new AutonTurnCommand(m_driveSubsytem, 50));
+    new JoystickButton(m_controller, 8).onTrue(new AutonDriveCommand(m_driveSubsytem, 50));
 
 
       // if (m_controller.getAButton()) {

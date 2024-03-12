@@ -33,8 +33,6 @@ public class AutonTurnCommand extends Command {
       driveSubsytem.drive(0.0, 0.0);
     }
     time--;
-
-    SmartDashboard.putNumber("time", time);
   }
 
   @Override
