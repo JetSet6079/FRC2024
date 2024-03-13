@@ -5,13 +5,11 @@
 package frc.robot.Autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AutonDriveCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsytem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -24,7 +22,7 @@ public class MainAuton extends SequentialCommandGroup {
     addCommands(
       new ParallelRaceGroup(
         // start shooter
-        new RunCommand(()-> shooter.speakerAutoShoot(sensers.distanceFromTag()), shooter),
+        new RunCommand(()-> shooter.shoot(1.0), shooter),
 
         // wait 2 seconds then run indexer to feed shooter, after 3 seconds, this ends which ends the parallel race group
         new SequentialCommandGroup(
@@ -34,27 +32,27 @@ public class MainAuton extends SequentialCommandGroup {
       ),
 
       new ParallelRaceGroup(
-        new AutonDriveCommand(drive, Units.inchesToMeters(-72)),
+        //new AutonDriveCommand(drive, Constants.calculateDistanceMeters(1.8288), true),
+
+        new RunCommand(()->drive.drive(-0.5, 0), drive).withTimeout(Constants.calculateDistanceMeters(1.8288)),
         new ParallelCommandGroup(
           new RunCommand(()-> intake.intake(1.0), intake),
           new RunCommand(()-> index.index(1.0), index)
         ).withTimeout(5.0)
       ),
 
-      new AutonDriveCommand(drive, Units.inchesToMeters(72)),
+        new RunCommand(()->drive.drive(0.5, 0), drive).withTimeout(Constants.calculateDistanceMeters(1.8288)),
 
        new ParallelRaceGroup(
         // start shooter
-        new RunCommand(()-> shooter.speakerAutoShoot(sensers.distanceFromTag()), shooter),
+        new RunCommand(()-> shooter.shoot(1.0), shooter),
 
         // wait 2 seconds then run indexer to feed shooter, after 3 seconds, this ends which ends the parallel race group
         new SequentialCommandGroup(
           new WaitCommand(0.5),
           new RunCommand(()->index.index(1.0), index).withTimeout(1.5)
         )
-      )
-
-
+        )
     );
   }
 }

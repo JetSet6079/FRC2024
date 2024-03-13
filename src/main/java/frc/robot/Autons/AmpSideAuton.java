@@ -16,9 +16,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SenserSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class EmptySideAuton extends SequentialCommandGroup {
+public class AmpSideAuton extends SequentialCommandGroup {
 
-  public EmptySideAuton(DriveSubsytem drive, ShooterSubsystem shooter, IndexerSubsystem index, IntakeSubsystem intake, SenserSubsystem sensers) {
+  public AmpSideAuton(DriveSubsytem drive, ShooterSubsystem shooter, IndexerSubsystem index, IntakeSubsystem intake, SenserSubsystem sensers) {
 
     addCommands(
       new ParallelRaceGroup(
@@ -33,7 +33,7 @@ public class EmptySideAuton extends SequentialCommandGroup {
       ),
 
     
-      new RunCommand(()->drive.drive(0.0, -0.5), drive).withTimeout(Constants.calculateDistanceAngle(69)),
+      new RunCommand(()->drive.drive(0.0, 0.5), drive).withTimeout(Constants.calculateDistanceAngle(69)),
 
       new ParallelRaceGroup(
         new RunCommand(()->drive.drive(-0.5, 0), drive).withTimeout(Constants.calculateDistanceMeters(2.2)),
@@ -45,7 +45,7 @@ public class EmptySideAuton extends SequentialCommandGroup {
       ),
 
       new RunCommand(()->drive.drive(0.5, 0), drive).withTimeout(Constants.calculateDistanceMeters(2.2)),
-      new RunCommand(()->drive.drive(0.0, 0.5), drive).withTimeout(Constants.calculateDistanceAngle(64.5)),
+      new RunCommand(()->drive.drive(0.0, -0.5), drive).withTimeout(Constants.calculateDistanceAngle(64.5)),
 
       new ParallelRaceGroup(
         // start shooter

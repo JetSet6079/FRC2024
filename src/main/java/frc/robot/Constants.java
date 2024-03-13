@@ -48,4 +48,11 @@ public final class Constants {
     public static final double METERS_IN_TIME_QUARTERSPEED = 1.225;
     public static final double DEGREES_IN_TIME_QUARTERSPEED = 197.5;
   }
+
+  public static double calculateDistanceMeters(double distance) {
+    return distance/1.225;
+  }
+  public static double calculateDistanceAngle(double distance) {
+    return distance/197.5;
+  }
 }

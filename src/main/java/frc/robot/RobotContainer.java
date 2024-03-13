@@ -9,8 +9,6 @@ import frc.robot.Autons.AutoShootThenCrossLine;
 import frc.robot.Autons.EmptySideAuton;
 import frc.robot.Autons.MainAuton;
 import frc.robot.Autons.TestAuton;
-import frc.robot.commands.AutonDriveCommand;
-import frc.robot.commands.AutonTurnCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsytem;
@@ -26,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -43,10 +40,6 @@ public class RobotContainer {
   //IF REALLY SLOW, EDIT THIS
   private double intakeSpeed = 0.75;
 
-  private double shootTestSpeed;
-
-  private boolean detected = false;
-
   // Put commands in a dropdown in Smart Dashboard
   private SendableChooser<Command> dropdown = new SendableChooser<>();
 
@@ -54,7 +47,7 @@ public class RobotContainer {
 
       dropdown.addOption("Cross The Line", new AutoCrossTheLine(m_driveSubsytem));
       dropdown.setDefaultOption("Shoot and Cross Line", new AutoShootThenCrossLine(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem));
-      dropdown.addOption("Empty Side Shoot and Move", new EmptySideAuton(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem, m_intakeSubsystem, m_senserSubsystem));
+      dropdown.addOption("Empty side", new EmptySideAuton(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem, m_intakeSubsystem, m_senserSubsystem));
       dropdown.addOption("Main Auton (middle)", new MainAuton(m_driveSubsytem, m_shooterSubsystem, m_indexerSubsystem, m_intakeSubsystem, m_senserSubsystem));
       dropdown.addOption("TEST", new TestAuton(m_driveSubsytem));
 
@@ -106,10 +99,6 @@ public class RobotContainer {
         )
       );
 
-    //TEST AUTON DRIVE, RIGHT ABOVE XBOX BUTTON
-
-    new JoystickButton(m_controller, 8).onTrue(new AutonDriveCommand(m_driveSubsytem, 50));
-
 
       // if (m_controller.getAButton()) {
         
@@ -146,9 +135,5 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return dropdown.getSelected();
-  }
-
-  public void detect() {
-    detected = true;
   }
 }
